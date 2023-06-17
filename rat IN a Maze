@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+int ans[11][11]={0};
+
+void display(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<ans[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+    cout<<"____**_____"<<endl;
+}
+
+void mazeHelper(int arr[][11],int n,int x,int y){
+    
+    if(x==n-1 && y==n-1){
+        ans[x][y]=1;
+        display(n);
+        return;
+        
+    }
+    if(x>n-1 || y>n-1 || x<0 || y<0 || ans[x][y]==1 || arr[x][y]==0){
+        return;
+    }
+    
+    ans[x][y]=1;
+    mazeHelper(arr,n,x-1,y);
+    mazeHelper(arr,n,x+1,y);
+    mazeHelper(arr,n,x,y-1);
+    mazeHelper(arr,n,x,y+1);
+    ans[x][y]=0;
+    return;
+}
+void ratInAMaze(int arr[][11],int n){
+    mazeHelper(arr,n,0,0);
+    return;
+}
+
+
+int main(){
+    int n;
+    cin>>n;
+    int arr[11][11];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>arr[i][j];
+        }
+    }
+    
+    ratInAMaze(arr,n);
+    return 0;
+}
